@@ -8,11 +8,11 @@ const Show = () => {
   const [show, setShow] = useState(null);
 
   useEffect(() => {
-    apiGet(`/shows/{id}?embed[]=episodes&embed[]=cast`).then(results => {
+    apiGet(`/shows/${id}?embed[]=episodes&embed[]=cast`).then(results => {
       setShow(results);
     });
   }, [id]);
-
+  // eslint-disable-next-line
   console.log('show', show);
 
   return <div>this is show page</div>;
