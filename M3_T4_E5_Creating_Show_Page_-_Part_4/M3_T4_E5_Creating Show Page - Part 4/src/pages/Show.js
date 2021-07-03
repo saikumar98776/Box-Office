@@ -1,9 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
-import Details from '../components/show/Details';
-import ShowMainData from '../components/show/ShowMainData';
 import { apiGet } from '../misc/config';
+import ShowMainData from '../components/show/ShowMainData';
+import Details from '../components/show/Details';
 import Seasons from '../components/show/Seasons';
 import Cast from '../components/show/Cast';
 
@@ -12,6 +12,7 @@ const reducer = (prevState, action) => {
     case 'FETCH_SUCCESS': {
       return { isLoading: false, error: null, show: action.show };
     }
+
     case 'FETCH_FAILED': {
       return { ...prevState, isLoading: false, error: action.error };
     }
@@ -49,17 +50,20 @@ const Show = () => {
           dispatch({ type: 'FETCH_FAILED', error: err.message });
         }
       });
+
     return () => {
       isMounted = false;
     };
   }, [id]);
 
   if (isLoading) {
-    return <div>Page is loading</div>;
+    return <div>Data is being loaded</div>;
   }
+
   if (error) {
-    return <div>Error:404{error}</div>;
+    return <div>Error occured: {error}</div>;
   }
+
   return (
     <div>
       <ShowMainData
@@ -69,6 +73,7 @@ const Show = () => {
         summary={show.summary}
         tags={show.genres}
       />
+
       <div>
         <h2>Details</h2>
         <Details
